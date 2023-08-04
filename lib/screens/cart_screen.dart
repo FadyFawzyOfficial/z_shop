@@ -123,7 +123,7 @@ class CartItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: Key(item.id),
+      key: Key(item.id!),
       background: Container(
           color: Colors.red,
           child: const Row(

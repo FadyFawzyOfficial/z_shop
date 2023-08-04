@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 
 import '../models/cart_item.dart';
 import '../models/product.dart';
@@ -11,201 +10,6 @@ import '../models/shop.dart';
 
 class Api {
   static String serverIP = '192.168.1.2';
-
-  static int _lastId = 0;
-
-  static final List<Product> _products = [
-    Product(
-        id: "0",
-        name: 'Nestle Quality Street Chocolate',
-        price: '170',
-        discountPrice: '145.95',
-        image: 'assets/images/Nestle Quality Street Chocolate.jpg',
-        isFavorite: false,
-        shops: [
-          ProductShop(
-            shopId: '1',
-            shopName: 'Carrefour',
-            image: 'assets/images/carrefour.jpg',
-            price: '170',
-            discountPrice: '145.95',
-          ),
-          ProductShop(
-            shopId: '2',
-            shopName: 'Hyperone',
-            image: 'assets/images/hyperone.png',
-            price: '172',
-          ),
-          ProductShop(
-            shopId: '3',
-            shopName: 'Spinneys',
-            image: 'assets/images/spinneys.png',
-            price: '180',
-          ),
-        ]),
-    Product(
-        id: "1",
-        name: 'Ahmed Tea Earl Grey',
-        price: '88.95',
-        discountPrice: null,
-        image: 'assets/images/Ahmad Tea Earl Grey Tea.jpg',
-        isFavorite: false,
-        shops: [
-          ProductShop(
-            shopId: '1',
-            shopName: 'Carrefour',
-            image: 'assets/images/carrefour.jpg',
-            price: '90',
-          ),
-          ProductShop(
-            shopId: '2',
-            shopName: 'Hyperone',
-            image: 'assets/images/hyperone.png',
-            price: '88.95',
-          ),
-        ]),
-    Product(
-        id: "2",
-        name: 'Almarai Full Milk',
-        price: '22.95',
-        discountPrice: null,
-        image: 'assets/images/almarai.jpg',
-        isFavorite: false,
-        shops: [
-          ProductShop(
-            shopId: '1',
-            shopName: 'Carrefour',
-            image: 'assets/images/carrefour.jpg',
-            price: '22.95',
-          ),
-        ]),
-    Product(
-        id: "3",
-        name: 'Amira Vegetable Ghee',
-        price: '62.95',
-        discountPrice: null,
-        image: 'assets/images/amira.jpg',
-        isFavorite: false,
-        shops: [
-          ProductShop(
-            shopId: '2',
-            shopName: 'Hyperone',
-            image: 'assets/images/hyperone.png',
-            price: '63',
-          ),
-          ProductShop(
-            shopId: '3',
-            shopName: 'Spinneys',
-            image: 'assets/images/spinneys.png',
-            price: '62.95',
-          ),
-        ]),
-    Product(
-        id: "4",
-        name: 'Cadbury Bubbly Chocolate',
-        price: '22.45',
-        discountPrice: null,
-        image: 'assets/images/Cadbury Bubbly Chocolate.jpg',
-        isFavorite: false,
-        shops: [
-          ProductShop(
-            shopId: '1',
-            shopName: 'Carrefour',
-            image: 'assets/images/carrefour.jpg',
-            price: '22.45',
-          ),
-          ProductShop(
-            shopId: '2',
-            shopName: 'Hyperone',
-            image: 'assets/images/hyperone.png',
-            price: '23',
-          ),
-          ProductShop(
-            shopId: '3',
-            shopName: 'Spinneys',
-            image: 'assets/images/spinneys.png',
-            price: '22.85',
-          ),
-        ]),
-    Product(
-        id: "5",
-        name: 'Crystal Gold Vegetable Ghee',
-        price: '64.55',
-        discountPrice: null,
-        image: 'assets/images/Crystal.jpg',
-        isFavorite: false,
-        shops: [
-          ProductShop(
-            shopId: '3',
-            shopName: 'Spinneys',
-            image: 'assets/images/spinneys.png',
-            price: '64.55',
-          ),
-        ]),
-    Product(
-        id: "6",
-        name: 'Heinz Tomato Paste',
-        price: '10.75',
-        discountPrice: null,
-        image: 'assets/images/Heinz.jpg',
-        isFavorite: false,
-        shops: [
-          ProductShop(
-            shopId: '1',
-            shopName: 'Carrefour',
-            image: 'assets/images/carrefour.jpg',
-            price: '10.75',
-          ),
-          ProductShop(
-            shopId: '2',
-            shopName: 'Hyperone',
-            image: 'assets/images/hyperone.png',
-            price: '12',
-          ),
-          ProductShop(
-            shopId: '3',
-            shopName: 'Spinneys',
-            image: 'assets/images/spinneys.png',
-            price: '11',
-          ),
-        ]),
-    Product(
-        id: "7",
-        name: 'Juhayana Full Cream Milk',
-        price: '15.70',
-        discountPrice: null,
-        image: 'assets/images/juhayna.jpg',
-        isFavorite: false,
-        shops: [
-          ProductShop(
-            shopId: '1',
-            shopName: 'Carrefour',
-            image: 'assets/images/carrefour.jpg',
-            price: '15.70',
-          ),
-        ]),
-    Product(
-        id: "8",
-        name: 'Pampers',
-        price: '160',
-        discountPrice: null,
-        image: 'assets/images/Pampers.jpg',
-        isFavorite: false,
-        shops: [
-          ProductShop(
-            shopId: '2',
-            shopName: 'Hyperone',
-            image: 'assets/images/hyperone.png',
-            price: '160',
-          ),
-          ProductShop(
-            shopId: '3',
-            shopName: 'Spinneys',
-            image: 'assets/images/spinneys.png',
-            price: '160.01',
-          ),
-        ])
-  ];
 
   static final List<Shop> _shops = [
     Shop(
@@ -319,34 +123,24 @@ class Api {
     return _items;
   }
 
-  static Future<void> addToCart(Product product) async {
-    await Future.delayed(const Duration(seconds: 1));
+  static Future<String> addToCart(CartItem cartItem) async {
+    try {
+      final response = await http.post(
+        Uri.parse('http://$serverIP:3000/cart'),
+        headers: {'content-type': 'application/json'},
+        body: cartItem.toJson(),
+      );
 
-    CartItem item = _items.firstWhere(
-      (element) => element.productId == product.id,
-      orElse: () => CartItem(
-        id: (_lastId++).toString(),
-        count: 1,
-        productId: product.id,
-        name: product.name,
-        price: "0",
-        image: product.image,
-        dateOfPurchase: DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
-            .format(DateTime.now()),
-      ),
-    );
-
-    item.count++;
-
-    item.dateOfPurchase = DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
-        .format(DateTime.now());
-
-    _items.add(item);
-
-    item.price = product.discountPrice ?? product.price;
-    item.shopId = product.shops
-        .firstWhere((element) => element.price == item.price)
-        .shopId;
+      if (response.statusCode == 201) {
+        debugPrint(response.headers['location']);
+        return response.headers['location']!.replaceFirst('/cart/', '');
+      } else {
+        throw Exception('Not Created');
+      }
+    } catch (e) {
+      debugPrint('$e');
+      rethrow;
+    }
   }
 
   static Future<void> removeFromCart(CartItem item) async {
