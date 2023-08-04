@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class CartItem {
   final String id;
   int count;
@@ -8,17 +6,17 @@ class CartItem {
   String price;
   final String image;
   String dateOfPurchase;
-  String shopId;
+  String? shopId;
 
   double get total => double.parse(price) * count;
 
   CartItem({
-    @required this.id,
-    @required this.count,
-    @required this.productId,
-    @required this.name,
-    @required this.price,
-    @required this.image,
-    @required this.dateOfPurchase
+    required this.id,
+    required this.count,
+    required this.productId,
+    required this.name,
+    required this.price,
+    required this.image,
+    required this.dateOfPurchase,
   });
 }
