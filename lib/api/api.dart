@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -282,13 +283,20 @@ class Api {
   }
 
   static Future<Product> fetchProduct(String id) async {
-    await Future.delayed(const Duration(seconds: 2));
+    try {
+      final response = await http.get(
+        Uri.parse('http://$serverIP:3000/products/$id'),
+      );
 
-    var p = _products.singleWhere((element) => element.id == id);
-
-    p = p.copy();
-
-    return p;
+      if (response.statusCode == 200) {
+        return Product.fromMap(json.decode(response.body));
+      } else {
+        throw Exception('Not Found');
+      }
+    } catch (e) {
+      debugPrint('$e');
+      rethrow;
+    }
   }
 
   static Future<List<Shop>> fetchShops() async {

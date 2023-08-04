@@ -69,15 +69,14 @@ class ProductShop {
 
   factory ProductShop.fromMap(Map<String, dynamic> map) {
     return ProductShop(
-      shopId: map['shopId'] as String,
-      shopName: map['shopName'] as String,
-      image: map['image'] as String,
-      price: map['price'] as String,
-      discountPrice:
-          map['discountPrice'] != null ? map['discountPrice'] as String : null,
+      shopId: map['id'],
+      shopName: map['name'],
+      image: map['image'],
+      price: map['price'],
+      discountPrice: map['discountPrice'],
     );
   }
 
   factory ProductShop.fromJson(String source) =>
-      ProductShop.fromMap(json.decode(source) as Map<String, dynamic>);
+      ProductShop.fromMap(json.decode(source));
 }
