@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './blocs/cart/cart_bloc.dart';
-import './blocs/products/products_bloc.dart';
-import './blocs/shops/shops_bloc.dart';
-import './screens/cart_item_screen.dart';
-import './screens/cart_screen.dart';
-import './screens/home_screen.dart';
-import './widgets/shops_screen.dart';
+import 'blocs/cart/cart_bloc.dart';
+import 'blocs/products/products_bloc.dart';
+import 'blocs/shops/shops_bloc.dart';
+import 'screens/cart_item_screen.dart';
+import 'screens/cart_screen.dart';
+import 'screens/home_screen.dart';
+import 'widgets/shops_screen.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -33,14 +32,14 @@ class MyApp extends StatelessWidget {
         title: 'ZShop',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            primaryColor: Color(0xff0d569f),
+            primaryColor: const Color(0xff0d569f),
             visualDensity: VisualDensity.adaptivePlatformDensity,
             scaffoldBackgroundColor: Colors.white),
         routes: {
-          "/": (_) => HomeScreen(),
-          CartScreen.route: (_) => CartScreen(),
-          ShopsScreen.route: (_) => ShopsScreen(),
-          CartItemScreen.route: (_) => CartItemScreen()
+          '/': (_) => const HomeScreen(),
+          CartScreen.route: (_) => const CartScreen(),
+          ShopsScreen.route: (_) => const ShopsScreen(),
+          CartItemScreen.route: (_) => const CartItemScreen()
         },
       ),
     );

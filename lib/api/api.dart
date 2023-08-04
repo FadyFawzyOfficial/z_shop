@@ -9,13 +9,13 @@ import '../models/shop.dart';
 class Api {
   static int _lastId = 0;
 
-  static List<Product> _products = [
+  static final List<Product> _products = [
     Product(
         id: "0",
         name: 'Nestle Quality Street Chocolate',
         price: '170',
         discountPrice: '145.95',
-        image: 'assets/images/Nestle Quality Street Chocolate.jpg_480Wx480H',
+        image: 'assets/images/Nestle Quality Street Chocolate.jpg',
         isFavorite: false,
         shops: [
           ProductShop(
@@ -43,7 +43,7 @@ class Api {
         name: 'Ahmed Tea Earl Grey',
         price: '88.95',
         discountPrice: null,
-        image: 'assets/images/Ahmad Tea Earl Grey Tea.jpg_480Wx480H',
+        image: 'assets/images/Ahmad Tea Earl Grey Tea.jpg',
         isFavorite: false,
         shops: [
           ProductShop(
@@ -64,7 +64,7 @@ class Api {
         name: 'Almarai Full Milk',
         price: '22.95',
         discountPrice: null,
-        image: 'assets/images/almarai.jpg_480Wx480H',
+        image: 'assets/images/almarai.jpg',
         isFavorite: false,
         shops: [
           ProductShop(
@@ -79,7 +79,7 @@ class Api {
         name: 'Amira Vegetable Ghee',
         price: '62.95',
         discountPrice: null,
-        image: 'assets/images/amira.jpg_480Wx480H',
+        image: 'assets/images/amira.jpg',
         isFavorite: false,
         shops: [
           ProductShop(
@@ -100,7 +100,7 @@ class Api {
         name: 'Cadbury Bubbly Chocolate',
         price: '22.45',
         discountPrice: null,
-        image: 'assets/images/Cadbury Bubbly Chocolate.jpg_480Wx480H',
+        image: 'assets/images/Cadbury Bubbly Chocolate.jpg',
         isFavorite: false,
         shops: [
           ProductShop(
@@ -127,7 +127,7 @@ class Api {
         name: 'Crystal Gold Vegetable Ghee',
         price: '64.55',
         discountPrice: null,
-        image: 'assets/images/Crystal.jpg_480Wx480H',
+        image: 'assets/images/Crystal.jpg',
         isFavorite: false,
         shops: [
           ProductShop(
@@ -142,7 +142,7 @@ class Api {
         name: 'Heinz Tomato Paste',
         price: '10.75',
         discountPrice: null,
-        image: 'assets/images/Heinz.jpg_480Wx480H',
+        image: 'assets/images/Heinz.jpg',
         isFavorite: false,
         shops: [
           ProductShop(
@@ -169,7 +169,7 @@ class Api {
         name: 'Juhayana Full Cream Milk',
         price: '15.70',
         discountPrice: null,
-        image: 'assets/images/juhayna.jpg_480Wx480H',
+        image: 'assets/images/juhayna.jpg',
         isFavorite: false,
         shops: [
           ProductShop(
@@ -184,7 +184,7 @@ class Api {
         name: 'Pampers',
         price: '160',
         discountPrice: null,
-        image: 'assets/images/Pampers.jpg_480Wx480H',
+        image: 'assets/images/Pampers.jpg',
         isFavorite: false,
         shops: [
           ProductShop(
@@ -202,7 +202,7 @@ class Api {
         ])
   ];
 
-  static List<Shop> _shops = [
+  static final List<Shop> _shops = [
     Shop(
         id: "1",
         name: 'Carrefour',
@@ -211,19 +211,19 @@ class Api {
           ShopItem(
             name: 'Juhayana Full Cream Milk',
             price: '15.70',
-            image: 'assets/images/juhayna.jpg_480Wx480H',
+            image: 'assets/images/juhayna.jpg',
           ),
           ShopItem(
             name: 'Heinz Tomato Paste',
             price: '10.75',
-            image: 'assets/images/Heinz.jpg_480Wx480H',
+            image: 'assets/images/Heinz.jpg',
           ),
           ShopItem(
             name: 'Nestle Quality Street Chocolate',
             price: '170',
             discountPrice: '145.95',
             image:
-                'assets/images/Nestle Quality Street Chocolate.jpg_480Wx480H',
+                'assets/images/Nestle Quality Street Chocolate.jpg',
           ),
         ]),
     Shop(
@@ -234,12 +234,12 @@ class Api {
           ShopItem(
             name: 'Pampers',
             price: '160',
-            image: 'assets/images/Pampers.jpg_480Wx480H',
+            image: 'assets/images/Pampers.jpg',
           ),
           ShopItem(
             name: 'Heinz Tomato Paste',
             price: '12',
-            image: 'assets/images/Heinz.jpg_480Wx480H',
+            image: 'assets/images/Heinz.jpg',
           ),
         ]),
     Shop(
@@ -250,42 +250,42 @@ class Api {
           ShopItem(
             name: 'Pampers',
             price: '160.01',
-            image: 'assets/images/Pampers.jpg_480Wx480H',
+            image: 'assets/images/Pampers.jpg',
           ),
           ShopItem(
             name: 'Heinz Tomato Paste',
             price: '11',
-            image: 'assets/images/Heinz.jpg_480Wx480H',
+            image: 'assets/images/Heinz.jpg',
           ),
         ]),
   ];
 
-  static List<CartItem> _items = [];
+  static final List<CartItem> _items = [];
 
   static Future<List<Product>> fetchProducts() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     return _products;
   }
 
   static Future<Product> fetchProduct(String id) async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     var p = _products.singleWhere((element) => element.id == id);
 
-    if (p != null) p = p.copy();
+    p = p.copy();
 
     return p;
   }
 
   static Future<List<Shop>> fetchShops() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     return _shops;
   }
 
   static Future<Shop> fetchShop(String id) async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     var p = _shops.singleWhere((element) => element.id == id);
 
@@ -293,52 +293,49 @@ class Api {
   }
 
   static Future<List<CartItem>> loadCart() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     return _items;
   }
 
   static Future<void> addToCart(Product product) async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
 
     CartItem item = _items.firstWhere(
-        (element) => element.productId == product.id,
-        orElse: () => null);
+      (element) => element.productId == product.id,
+      orElse: () => CartItem(
+        id: (_lastId++).toString(),
+        count: 1,
+        productId: product.id,
+        name: product.name,
+        price: "0",
+        image: product.image,
+        dateOfPurchase: DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
+            .format(DateTime.now()),
+      ),
+    );
 
-    if (item != null) {
-      item.count++;
+    item.count++;
 
-      item.dateOfPurchase = DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
-          .format(DateTime.now());
-    } else {
-      item = CartItem(
-          id: (_lastId++).toString(),
-          count: 1,
-          productId: product.id,
-          name: product.name,
-          price: "0",
-          image: product.image,
-          dateOfPurchase: DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
-              .format(DateTime.now()));
+    item.dateOfPurchase = DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
+        .format(DateTime.now());
 
-      _items.add(item);
-    }
+    _items.add(item);
 
     item.price = product.discountPrice ?? product.price;
     item.shopId = product.shops
-        .firstWhere((element) => element.price == item.price,
-            orElse: () => null)
-        ?.shopId;
+        .firstWhere((element) => element.price == item.price)
+        .shopId;
   }
 
   static Future<void> removeFromCart(CartItem item) async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     _items.remove(item);
   }
 
   static Future<void> placeOrder() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     _items.clear();
   }
