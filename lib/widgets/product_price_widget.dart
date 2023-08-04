@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import './price_widget.dart';
+import 'price_widget.dart';
 
 class ProductPriceWidget extends StatelessWidget {
-  const ProductPriceWidget(this.price, {this.discountPrice});
+  const ProductPriceWidget(this.price, {super.key, this.discountPrice});
 
   final String price;
-  final String discountPrice;
+  final String? discountPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,11 @@ class ProductPriceWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         if (discount)
-          PriceWidget(price: discountPrice, color: Colors.red, fontSize: 16),
+          PriceWidget(
+            price: discountPrice!,
+            color: Colors.red,
+            fontSize: 16,
+          ),
         PriceWidget(
           price: price,
           color: discount ? Colors.grey : Colors.black,
