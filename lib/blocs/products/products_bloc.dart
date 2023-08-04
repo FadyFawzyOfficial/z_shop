@@ -15,7 +15,7 @@ class ProductsCubit extends Cubit<ProductsState> {
 
       emit(ProductsLoaded(products));
     } catch (ex) {
-      emit(ProductsLoadingFailure(ex.message));
+      emit(ProductsLoadingFailure('$ex'));
     }
   }
 }

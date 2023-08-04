@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './product_states.dart';
 import '../../api/api.dart';
 import '../../models/product.dart';
+import 'product_states.dart';
 
 class ProductCubit extends Cubit<ProductState> {
-  Product product;
+  Product? product;
 
   ProductCubit() : super(ProductInitial());
 
@@ -15,20 +15,20 @@ class ProductCubit extends Cubit<ProductState> {
     try {
       product = await Api.fetchProduct(id);
 
-      emit(ProductLoaded(product));
+      emit(ProductLoaded(product!));
     } catch (ex) {
-      emit(LoadingProductFailed(ex.message));
+      emit(LoadingProductFailed('$ex'));
     }
   }
 
   void selectShop(ProductShop item) async {
     try {
-      product.price = item.price;
-      product.discountPrice = item.discountPrice;
+      product?.price = item.price;
+      product?.discountPrice = item.discountPrice;
 
-      emit(ProductUpdated(product));
+      emit(ProductUpdated(product!));
     } catch (ex) {
-      emit(LoadingProductFailed(ex.message));
+      emit(LoadingProductFailed('$ex'));
     }
   }
 }

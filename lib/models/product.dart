@@ -1,7 +1,7 @@
 class Product {
   final String id;
-  final String name, image, price;
-  final String? discountPrice;
+  String name, image, price;
+  String? discountPrice;
   final bool isFavorite;
 
   final List<ProductShop> shops;

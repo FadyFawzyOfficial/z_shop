@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './shop_states.dart';
 import '../../api/api.dart';
 import '../../models/shop.dart';
+import 'shop_states.dart';
 
 class ShopCubit extends Cubit<ShopState> {
   Shop shop;
@@ -17,7 +17,7 @@ class ShopCubit extends Cubit<ShopState> {
 
       emit(ShopLoaded(shop));
     } catch (ex) {
-      emit(LoadingShopFailed(ex.message));
+      emit(LoadingShopFailed('$ex'));
     }
   }
 }

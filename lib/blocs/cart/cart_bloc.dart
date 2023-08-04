@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './cart_states.dart';
 import '../../api/api.dart';
 import '../../models/cart_item.dart';
 import '../../models/product.dart';
+import 'cart_states.dart';
 
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
@@ -16,7 +16,7 @@ class CartCubit extends Cubit<CartState> {
 
       emit(CartLoaded(items));
     } catch (ex) {
-      CartFailure(ex.message);
+      CartFailure('$ex');
     }
   }
 
@@ -30,7 +30,7 @@ class CartCubit extends Cubit<CartState> {
 
       loadCart();
     } catch (ex) {
-      CartFailure(ex.message);
+      CartFailure('$ex');
     }
   }
 
@@ -44,7 +44,7 @@ class CartCubit extends Cubit<CartState> {
 
       loadCart();
     } catch (ex) {
-      CartFailure(ex.message);
+      CartFailure('$ex');
     }
   }
 
@@ -56,7 +56,7 @@ class CartCubit extends Cubit<CartState> {
 
       loadCart();
     } catch (ex) {
-      OrderFailure(ex.message);
+      OrderFailure('$ex');
     }
   }
 }
