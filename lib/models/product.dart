@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 class Product {
   final String id;
-  String name, image, price;
+  String name;
+  String image;
+  String price;
   String? discountPrice;
   final bool isFavorite;
 
@@ -9,9 +13,9 @@ class Product {
   Product({
     required this.id,
     required this.name,
+    required this.image,
     required this.price,
     required this.discountPrice,
-    required this.image,
     required this.isFavorite,
     this.shops = const [],
   });
@@ -27,6 +31,25 @@ class Product {
       shops: shops,
     );
   }
+
+  factory Product.fromMap(Map<String, dynamic> map) {
+    return Product(
+      id: map['id'],
+      name: map['name'],
+      image: map['image'],
+      price: map['price'],
+      discountPrice: map['discountPrice'],
+      isFavorite: map['isFavorite'],
+      shops: map['shops'] == null
+          ? []
+          : map['shops']
+              .map<ProductShop>((x) => ProductShop.fromMap(x))
+              .toList(),
+    );
+  }
+
+  factory Product.fromJson(String source) =>
+      Product.fromMap(json.decode(source));
 }
 
 class ProductShop {
@@ -43,4 +66,18 @@ class ProductShop {
     required this.price,
     this.discountPrice,
   });
+
+  factory ProductShop.fromMap(Map<String, dynamic> map) {
+    return ProductShop(
+      shopId: map['shopId'] as String,
+      shopName: map['shopName'] as String,
+      image: map['image'] as String,
+      price: map['price'] as String,
+      discountPrice:
+          map['discountPrice'] != null ? map['discountPrice'] as String : null,
+    );
+  }
+
+  factory ProductShop.fromJson(String source) =>
+      ProductShop.fromMap(json.decode(source) as Map<String, dynamic>);
 }

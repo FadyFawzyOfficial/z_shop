@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 import '../models/cart_item.dart';
@@ -7,6 +9,8 @@ import '../models/product.dart';
 import '../models/shop.dart';
 
 class Api {
+  static String serverIP = '192.168.1.2';
+
   static int _lastId = 0;
 
   static final List<Product> _products = [
@@ -222,8 +226,7 @@ class Api {
             name: 'Nestle Quality Street Chocolate',
             price: '170',
             discountPrice: '145.95',
-            image:
-                'assets/images/Nestle Quality Street Chocolate.jpg',
+            image: 'assets/images/Nestle Quality Street Chocolate.jpg',
           ),
         ]),
     Shop(
@@ -263,9 +266,19 @@ class Api {
   static final List<CartItem> _items = [];
 
   static Future<List<Product>> fetchProducts() async {
-    await Future.delayed(const Duration(seconds: 2));
+    try {
+      final response =
+          await http.get(Uri.parse('http://$serverIP:3000/products'));
 
-    return _products;
+      if (response.statusCode == 200) {
+        final List<dynamic> productsData = json.decode(response.body);
+        return productsData.map((product) => Product.fromMap(product)).toList();
+      } else {
+        return [];
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 
   static Future<Product> fetchProduct(String id) async {
