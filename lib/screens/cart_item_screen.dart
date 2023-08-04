@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import '../models/cart_item.dart';
 
 class CartItemScreen extends StatelessWidget {
-  static final String route = '/cartItem';
+  static const String route = '/cartItem';
+
+  const CartItemScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    CartItem cartItem = ModalRoute.of(context).settings.arguments as CartItem;
+    CartItem cartItem = ModalRoute.of(context)!.settings.arguments as CartItem;
 
     return Scaffold(
       appBar: AppBar(title: Text(cartItem.name)),
@@ -21,8 +23,10 @@ class CartItemScreen extends StatelessWidget {
               const SizedBox(height: 16),
               Row(
                 children: <Widget>[
-                  const Text('Receipt',
-                      style: TextStyle(fontSize: 26, fontFamily: 'Alata')),
+                  const Text(
+                    'Receipt',
+                    style: TextStyle(fontSize: 26, fontFamily: 'Alata'),
+                  ),
                   const Spacer(),
                   Text(cartItem.dateOfPurchase)
                 ],
@@ -33,13 +37,15 @@ class CartItemScreen extends StatelessWidget {
                 children: <Widget>[
                   const SizedBox(
                     width: 80,
-                    child: const Text(
+                    child: Text(
                       'Quantity',
                       style: TextStyle(fontSize: 18),
                     ),
                   ),
                   const SizedBox(width: 16),
-                  Text(cartItem.count.toString())
+                  Text(
+                    cartItem.count.toString(),
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -47,7 +53,7 @@ class CartItemScreen extends StatelessWidget {
                 children: <Widget>[
                   const SizedBox(
                     width: 80,
-                    child: const Text(
+                    child: Text(
                       'Price',
                       style: TextStyle(fontSize: 18),
                     ),
@@ -61,7 +67,7 @@ class CartItemScreen extends StatelessWidget {
                 children: <Widget>[
                   const SizedBox(
                     width: 80,
-                    child: const Text(
+                    child: Text(
                       'Total',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -70,10 +76,11 @@ class CartItemScreen extends StatelessWidget {
                   const SizedBox(width: 16),
                   Text(
                     cartItem.total.toString(),
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
                   ),
                 ],
               ),

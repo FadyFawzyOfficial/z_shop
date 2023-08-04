@@ -9,25 +9,26 @@ import '../widgets/discount_widget.dart';
 import '../widgets/product_price_widget.dart';
 
 class ProductScreen extends StatelessWidget {
-  static final String route = '/product';
+  static const String route = '/product';
 
   final String name;
 
-  const ProductScreen(this.name);
+  const ProductScreen(this.name, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductCubit, ProductState>(
-      buildWhen: (prev, curr) =>
-          curr is LoadingProduct || curr is ProductLoaded,
+      buildWhen: (prev, current) =>
+          current is LoadingProduct || current is ProductLoaded,
       builder: (ctx, state) {
-        if (state is ProductLoaded)
+        if (state is ProductLoaded) {
           return _ProductWidget(state.product);
-        else
+        } else {
           return Scaffold(
             appBar: AppBar(title: Text(name)),
             body: const Center(child: CircularProgressIndicator()),
           );
+        }
       },
     );
   }
@@ -36,7 +37,7 @@ class ProductScreen extends StatelessWidget {
 class _ProductWidget extends StatelessWidget {
   final Product product;
 
-  _ProductWidget(this.product);
+  const _ProductWidget(this.product);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class _ProductWidget extends StatelessWidget {
             children: <Widget>[
               Stack(children: [
                 Image.asset(product.image, width: 400, height: 300),
-                if (product.discountPrice != null) DiscountWidget()
+                if (product.discountPrice != null) const DiscountWidget()
               ]),
               const SizedBox(height: 16),
               const Text('Details',
@@ -70,8 +71,10 @@ class _ProductWidget extends StatelessWidget {
                         children: <Widget>[
                           const SizedBox(
                             width: 80,
-                            child: const Text('Price',
-                                style: TextStyle(fontSize: 18)),
+                            child: Text(
+                              'Price',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
                           const SizedBox(width: 16),
                           ProductPriceWidget(product.price,
@@ -79,26 +82,27 @@ class _ProductWidget extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 8),
-                      Row(
+                      const Row(
                         children: <Widget>[
-                          const SizedBox(
+                          SizedBox(
                             width: 80,
-                            child: const Text(
+                            child: Text(
                               'Delivery',
                               style: TextStyle(fontSize: 18),
                             ),
                           ),
-                          const SizedBox(width: 16),
-                          const Text.rich(
-                              TextSpan(text: 'Expected on ', children: [
-                            TextSpan(
-                                text: 'Today, 2 pm - 5 pm',
-                                style: TextStyle(fontWeight: FontWeight.bold))
-                          ])),
+                          SizedBox(width: 16),
+                          Text.rich(
+                            TextSpan(text: 'Expected on ', children: [
+                              TextSpan(
+                                  text: 'Today, 2 pm - 5 pm',
+                                  style: TextStyle(fontWeight: FontWeight.bold))
+                            ]),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 16),
-                      Divider(thickness: 2),
+                      const Divider(thickness: 2),
                       const SizedBox(height: 16),
                       ShopsWidget(product),
                     ],
@@ -114,7 +118,7 @@ class _ProductWidget extends StatelessWidget {
 }
 
 class ShopsWidget extends StatelessWidget {
-  const ShopsWidget(this.product);
+  const ShopsWidget(this.product, {super.key});
 
   final Product product;
 
@@ -127,21 +131,25 @@ class ShopsWidget extends StatelessWidget {
           'Shops',
           style: TextStyle(fontSize: 26, fontFamily: 'Alata'),
         ),
-        if (product.shops.length > 0)
+        if (product.shops.isNotEmpty)
           ...product.shops
               .map((e) => Column(
                     children: <Widget>[
                       _ProductShopWidget(
                           item: e, isSelected: product.price == e.price),
                       const SizedBox(height: 4),
-                      Divider(thickness: 2, indent: 4, endIndent: 4)
+                      const Divider(thickness: 2, indent: 4, endIndent: 4)
                     ],
                   ))
               .toList()
         else
           Center(
-              child: Image.asset('assets/images/sorry.png',
-                  width: 200, height: 200))
+            child: Image.asset(
+              'assets/images/sorry.png',
+              width: 200,
+              height: 200,
+            ),
+          ),
       ],
     );
   }
@@ -149,7 +157,8 @@ class ShopsWidget extends StatelessWidget {
 
 class AddToCartButton extends StatelessWidget {
   const AddToCartButton({
-    @required this.product,
+    super.key,
+    required this.product,
   });
 
   final Product product;
@@ -158,12 +167,12 @@ class AddToCartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
         onPressed: () => BlocProvider.of<CartCubit>(context).addToCart(product),
-        child: Icon(Icons.add_shopping_cart));
+        child: const Icon(Icons.add_shopping_cart));
   }
 }
 
 class _ProductShopWidget extends StatelessWidget {
-  const _ProductShopWidget({@required this.item, this.isSelected = false});
+  const _ProductShopWidget({required this.item, this.isSelected = false});
 
   final ProductShop item;
   final bool isSelected;
