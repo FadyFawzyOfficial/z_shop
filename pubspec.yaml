@@ -36,6 +36,20 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   # Fady Fawzy Comment: Flutter Version is 3.10.3
   cupertino_icons: ^1.0.5
+  # A composable, multi-platform, Future-based API for HTTP requests.
+  http: ^1.1.0
+  # Provides internationalization and localization facilities, including message translation,
+  # plurals and genders, date/number formatting and parsing, and bidirectional text.
+  intl: ^0.18.0
+  # Flutter Widgets that make it easy to implement the BLoC (Business Logic Component) design pattern.
+  # Built to be used with the bloc state management package.
+  flutter_bloc: ^8.1.3
+  # A package for creating badges. Badges can be used for an additional marker for any widget,
+  # e.g. show a number of items in a shopping cart.
+  badges: ^3.1.0
+  # This package helps in creation of forms in Flutter by removing the boilerplate code,
+  # reusing validation, react to changes, and collect final user input.
+  flutter_form_builder: ^9.0.0
 
 dev_dependencies:
   flutter_test:
@@ -60,8 +74,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -75,12 +89,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: Alata
+      fonts:
+        - asset: assets/fonts/Alata-Regular.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
