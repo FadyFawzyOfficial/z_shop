@@ -102,9 +102,17 @@ class Api {
   }
 
   static Future<List<Shop>> fetchShops() async {
-    await Future.delayed(const Duration(seconds: 2));
+    try {
+      final response = await http.get(Uri.parse('http://$serverIP:3000/shops'));
 
-    return _shops;
+      if (response.statusCode != 200) throw Exception('Not Found');
+      return List.from(
+        json.decode(response.body).map((shop) => Shop.fromMap(shop)),
+      );
+    } catch (e) {
+      debugPrint('$e');
+      rethrow;
+    }
   }
 
   static Future<Shop> fetchShop(String id) async {
