@@ -44,7 +44,7 @@ class CartItem {
       name: map['name'],
       price: map['price'],
       image: map['image'],
-      dateOfPurchase: map['dateOfPurchase'],
+      dateOfPurchase: map['date'],
       shopId: map['shopId'],
     );
   }

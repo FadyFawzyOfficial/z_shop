@@ -27,7 +27,10 @@ class CartCubit extends Cubit<CartState> {
     emit(AddingToCart());
 
     CartItem item = _items.firstWhere(
-      (element) => element.productId == product.id,
+      (element) {
+        element.count++;
+        return element.productId == product.id;
+      },
       orElse: () => CartItem(
         count: 1,
         productId: product.id,
@@ -38,8 +41,6 @@ class CartCubit extends Cubit<CartState> {
             .format(DateTime.now()),
       ),
     );
-
-    item.count++;
 
     item.dateOfPurchase = DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
         .format(DateTime.now());

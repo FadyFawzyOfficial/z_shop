@@ -118,9 +118,20 @@ class Api {
   }
 
   static Future<List<CartItem>> loadCart() async {
-    await Future.delayed(const Duration(seconds: 2));
+    try {
+      final response = await http.get(Uri.parse('http://$serverIP:3000/cart'));
 
-    return _items;
+      if (response.statusCode == 200) {
+        return List.from(json
+            .decode(response.body)
+            .map((cartItem) => CartItem.fromMap(cartItem)));
+      } else {
+        throw Exception('Not Found');
+      }
+    } catch (e) {
+      debugPrint('$e');
+      rethrow;
+    }
   }
 
   static Future<String> addToCart(CartItem cartItem) async {
