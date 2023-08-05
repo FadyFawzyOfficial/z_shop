@@ -87,7 +87,9 @@ class CartCubit extends Cubit<CartState> {
 
   void placeOrder() async {
     try {
-      await Api.placeOrder();
+      await Api.placeOrder('1');
+
+      _items.clear();
 
       emit(OrderPlaced());
 

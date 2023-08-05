@@ -68,8 +68,6 @@ class Api {
         ]),
   ];
 
-  static final List<CartItem> _items = [];
-
   static Future<List<Product>> fetchProducts() async {
     try {
       final response =
@@ -181,9 +179,17 @@ class Api {
     }
   }
 
-  static Future<void> placeOrder() async {
-    await Future.delayed(const Duration(seconds: 2));
+  static Future<void> placeOrder(String address) async {
+    try {
+      final response = await http.post(
+        Uri.parse('http://$serverIP:3000/orders'),
+        body: {'address': address},
+      );
 
-    _items.clear();
+      if (response.statusCode != 201) throw Exception('Not Created');
+    } catch (e) {
+      debugPrint('$e');
+      rethrow;
+    }
   }
 }
