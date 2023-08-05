@@ -11,62 +11,7 @@ import '../models/shop.dart';
 class Api {
   static String serverIP = '192.168.1.2';
 
-  static final List<Shop> _shops = [
-    Shop(
-        id: "1",
-        name: 'Carrefour',
-        image: 'assets/images/carrefour.jpg',
-        items: [
-          ShopItem(
-            name: 'Juhayana Full Cream Milk',
-            price: '15.70',
-            image: 'assets/images/juhayna.jpg',
-          ),
-          ShopItem(
-            name: 'Heinz Tomato Paste',
-            price: '10.75',
-            image: 'assets/images/Heinz.jpg',
-          ),
-          ShopItem(
-            name: 'Nestle Quality Street Chocolate',
-            price: '170',
-            discountPrice: '145.95',
-            image: 'assets/images/Nestle Quality Street Chocolate.jpg',
-          ),
-        ]),
-    Shop(
-        id: '2',
-        name: 'Hyperone',
-        image: 'assets/images/hyperone.png',
-        items: [
-          ShopItem(
-            name: 'Pampers',
-            price: '160',
-            image: 'assets/images/Pampers.jpg',
-          ),
-          ShopItem(
-            name: 'Heinz Tomato Paste',
-            price: '12',
-            image: 'assets/images/Heinz.jpg',
-          ),
-        ]),
-    Shop(
-        id: '3',
-        name: 'Spinneys',
-        image: 'assets/images/spinneys.png',
-        items: [
-          ShopItem(
-            name: 'Pampers',
-            price: '160.01',
-            image: 'assets/images/Pampers.jpg',
-          ),
-          ShopItem(
-            name: 'Heinz Tomato Paste',
-            price: '11',
-            image: 'assets/images/Heinz.jpg',
-          ),
-        ]),
-  ];
+  static List<Shop> _shops = [];
 
   static Future<List<Product>> fetchProducts() async {
     try {
@@ -106,22 +51,18 @@ class Api {
       final response = await http.get(Uri.parse('http://$serverIP:3000/shops'));
 
       if (response.statusCode != 200) throw Exception('Not Found');
-      return List.from(
+      _shops = List.from(
         json.decode(response.body).map((shop) => Shop.fromMap(shop)),
       );
+      return _shops;
     } catch (e) {
       debugPrint('$e');
       rethrow;
     }
   }
 
-  static Future<Shop> fetchShop(String id) async {
-    await Future.delayed(const Duration(seconds: 2));
-
-    var p = _shops.singleWhere((element) => element.id == id);
-
-    return p;
-  }
+  static Shop fetchShop(String id) =>
+      _shops.singleWhere((element) => element.id == id);
 
   static Future<List<CartItem>> loadCart() async {
     try {
