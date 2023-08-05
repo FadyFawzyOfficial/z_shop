@@ -7,7 +7,7 @@ import '../../models/product.dart';
 import 'cart_states.dart';
 
 class CartCubit extends Cubit<CartState> {
-  final List<CartItem> _items = [];
+  List<CartItem> _items = [];
 
   CartCubit() : super(CartInitial());
 
@@ -15,9 +15,9 @@ class CartCubit extends Cubit<CartState> {
     emit(LoadingCart());
 
     try {
-      List<CartItem> items = await Api.loadCart();
+      _items = await Api.loadCart();
 
-      emit(CartLoaded(items));
+      emit(CartLoaded(_items));
     } catch (ex) {
       CartFailure('$ex');
     }
