@@ -154,10 +154,31 @@ class Api {
     }
   }
 
-  static Future<void> removeFromCart(CartItem item) async {
-    await Future.delayed(const Duration(seconds: 2));
+  static Future<void> updateCartItem(CartItem cartItem) async {
+    try {
+      final response = await http.patch(
+        Uri.parse('http://$serverIP:3000/cart/${cartItem.id}'),
+        headers: {'content-type': 'application/json'},
+        body: cartItem.toJson(),
+      );
 
-    _items.remove(item);
+      if (response.statusCode != 200) throw Exception('Not Created');
+    } catch (e) {
+      debugPrint('$e');
+      rethrow;
+    }
+  }
+
+  static Future<void> removeFromCart(String id) async {
+    try {
+      final response =
+          await http.delete(Uri.parse('http://$serverIP:3000/cart/$id'));
+
+      if (response.statusCode != 200) throw Exception('Not Created');
+    } catch (e) {
+      debugPrint('$e');
+      rethrow;
+    }
   }
 
   static Future<void> placeOrder() async {

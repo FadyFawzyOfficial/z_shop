@@ -24,14 +24,13 @@ class CartCubit extends Cubit<CartState> {
   }
 
   void addToCart(Product product) async {
+    bool isNew = true;
     emit(AddingToCart());
 
     CartItem item = _items.firstWhere(
-      (element) {
-        element.count++;
-        return element.productId == product.id;
-      },
+      (element) => element.productId == product.id,
       orElse: () => CartItem(
+        id: null,
         count: 1,
         productId: product.id,
         name: product.name,
@@ -42,15 +41,24 @@ class CartCubit extends Cubit<CartState> {
       ),
     );
 
-    item.dateOfPurchase = DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
-        .format(DateTime.now());
-
-    _items.add(item);
+    if (item.id != null) {
+      isNew = false;
+      item.count++;
+      item.dateOfPurchase = DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
+          .format(DateTime.now());
+    }
 
     item.price = product.discountPrice ?? product.price;
+    // item.shopId =
+    //     product.shops.firstWhere((shop) => shop.price == item.price).shopId;
 
     try {
-      item.id = await Api.addToCart(item);
+      if (isNew) {
+        item.id = await Api.addToCart(item);
+      } else {
+        Api.updateCartItem(item);
+      }
+
       _items.add(item);
 
       emit(AddedToCart());
@@ -65,7 +73,9 @@ class CartCubit extends Cubit<CartState> {
     emit(RemovingFromToCart());
 
     try {
-      await Api.removeFromCart(item);
+      await Api.removeFromCart(item.id!);
+
+      _items.remove(item);
 
       emit(RemovedFromToCart());
 

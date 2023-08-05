@@ -178,7 +178,7 @@ class CartItemWidget extends StatelessWidget {
               ),
             ),
             Text(
-              item.total.toString(),
+              item.total.toStringAsFixed(2),
               style: const TextStyle(
                 fontSize: 18,
                 color: Colors.red,
