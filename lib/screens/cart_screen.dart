@@ -87,7 +87,7 @@ class _CartItemsWidget extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(
-                  "Total: ${items.fold(0, (value, element) => value + element.total as int).toStringAsFixed(2)}",
+                  "Total: ${items.fold(0.0, (value, element) => value + element.total).toStringAsFixed(2)}",
                   style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white,
@@ -123,7 +123,7 @@ class CartItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: Key(item.id),
+      key: Key(item.id!),
       background: Container(
           color: Colors.red,
           child: const Row(
@@ -144,40 +144,41 @@ class CartItemWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+          children: [
             Image.asset(
               item.image,
               width: 70,
               height: 70,
             ),
             const SizedBox(width: 4),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(item.name,
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 4),
-                Text.rich(
-                  TextSpan(
-                    text: item.price,
-                    style: const TextStyle(
-                        fontSize: 14, fontStyle: FontStyle.italic),
-                    children: [
-                      TextSpan(
-                        text: ' x ',
-                        style:
-                            const TextStyle(fontSize: 12, color: Colors.black),
-                        children: [TextSpan(text: item.count.toString())],
-                      ),
-                    ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(item.name,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 4),
+                  Text.rich(
+                    TextSpan(
+                      text: item.price,
+                      style: const TextStyle(
+                          fontSize: 14, fontStyle: FontStyle.italic),
+                      children: [
+                        TextSpan(
+                          text: ' x ',
+                          style: const TextStyle(
+                              fontSize: 12, color: Colors.black),
+                          children: [TextSpan(text: item.count.toString())],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            const Spacer(),
             Text(
-              item.total.toString(),
+              item.total.toStringAsFixed(2),
               style: const TextStyle(
                 fontSize: 18,
                 color: Colors.red,

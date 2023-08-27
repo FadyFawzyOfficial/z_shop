@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 class CartItem {
-  final String id;
+  String? id;
   int count;
   final String productId;
   final String name;
@@ -11,12 +13,44 @@ class CartItem {
   double get total => double.parse(price) * count;
 
   CartItem({
-    required this.id,
+    this.id,
     required this.count,
     required this.productId,
     required this.name,
     required this.price,
     required this.image,
     required this.dateOfPurchase,
+    this.shopId,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'count': count,
+      'productId': productId,
+      'name': name,
+      'price': price,
+      'image': image,
+      'date': dateOfPurchase,
+      'shopId': shopId,
+    };
+  }
+
+  factory CartItem.fromMap(Map<String, dynamic> map) {
+    return CartItem(
+      id: map['id'],
+      count: map['count'],
+      productId: map['productId'],
+      name: map['name'],
+      price: map['price'],
+      image: map['image'],
+      dateOfPurchase: map['date'],
+      shopId: map['shopId'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory CartItem.fromJson(String source) =>
+      CartItem.fromMap(json.decode(source) as Map<String, dynamic>);
 }

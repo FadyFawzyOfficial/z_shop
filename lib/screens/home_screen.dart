@@ -21,13 +21,14 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ZShop'),
-        actions: <Widget>[
+        actions: [
           IconButton(
-              icon: const Icon(Icons.shop),
-              onPressed: () {
-                BlocProvider.of<ShopsCubit>(context).fetchShops();
-                Navigator.of(context).pushNamed(ShopsScreen.route);
-              }),
+            icon: const Icon(Icons.shop),
+            onPressed: () {
+              BlocProvider.of<ShopsCubit>(context).fetchShops();
+              Navigator.of(context).pushNamed(ShopsScreen.route);
+            },
+          ),
           const CartIconWidget(),
         ],
       ),
@@ -79,34 +80,28 @@ class ProductCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const SizedBox(height: 4),
               if (discount)
                 const DiscountWidget()
               else
-                const SizedBox(height: 34),
-              const SizedBox(height: 4),
+                const SizedBox(height: 32),
               Center(
-                  child: Image.asset(
-                product.image,
-                width: 100,
-                height: 100,
-              )),
-              const SizedBox(height: 12),
-              SizedBox(
-                height: 35,
-                child: Text(
-                  product.name,
-                  style: const TextStyle(fontSize: 16),
+                child: Image.asset(
+                  product.image,
+                  width: 100,
+                  height: 100,
                 ),
               ),
-              const SizedBox(
-                height: 16,
+              const SizedBox(height: 12),
+              Text(
+                product.name,
+                style: const TextStyle(fontSize: 16),
               ),
+              const SizedBox(height: 12),
               ProductPriceWidget(
                 product.price,
                 discountPrice: product.discountPrice,
               ),
-              const Spacer(flex: 2),
+              const Spacer(),
               Center(
                 child: SizedBox(
                   width: double.infinity,

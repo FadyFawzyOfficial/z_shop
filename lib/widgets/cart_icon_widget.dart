@@ -14,7 +14,7 @@ class CartIconWidget extends StatelessWidget {
     return BlocBuilder<CartCubit, CartState>(
       buildWhen: (prev, current) => current is CartLoaded,
       builder: (ctx, state) {
-        String count = "0";
+        String count = '0';
         if (state is CartLoaded) count = state.items.length.toString();
         return IconButton(
           icon: badge.Badge(
